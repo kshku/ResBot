@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def analyze(args):
     print("analyzing...")
 
@@ -9,7 +13,13 @@ def edit(args):
 
 def main():
     import argparse as ap
-    parser = ap.ArgumentParser(prog="ResBot")
+    from importlib.metadata import metadata
+
+    resbot = metadata('resbot')
+
+    parser = ap.ArgumentParser(prog=resbot["Name"], description=resbot["Summary"])
+
+    parser.add_argument("--version", action="version", version="%(prog)s " + resbot["Version"])
 
     subparsers = parser.add_subparsers(dest="command", required=True, help="What to do")
 
