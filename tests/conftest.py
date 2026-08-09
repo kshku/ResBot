@@ -3,12 +3,25 @@ from pathlib import Path
 import pymupdf
 import pytest
 
+from resbot.models.resume import ResumeAnalysis
+
 RESUME_TYP_CONTENT = (
     "# Alice Doe\n\n## Experience\n\nSenior Python developer at Acme Corp.\n"
 )
 JD_MD_CONTENT = "# Software Engineer\n\nWe need someone strong in Python and FastAPI.\n"
 JD_TXT_CONTENT = "Software Engineer role. Python, FastAPI, and Docker experience required.\n"
 PDF_PAGE_TEXTS = ["Alice Doe resume page one.\n", "Alice Doe resume page two.\n"]
+
+
+def make_analysis() -> ResumeAnalysis:
+    return ResumeAnalysis(
+        score=82,
+        summary="Good overall match",
+        strengths=["Python expertise", "Leadership"],
+        weaknesses=["No cloud experience"],
+        missing_keywords=["Kubernetes", "Docker"],
+        suggestions=["Add a projects section"],
+    )
 
 
 @pytest.fixture
