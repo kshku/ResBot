@@ -20,7 +20,7 @@ def test_text_loader_reads_content_and_metadata(sample_files):
     doc = docs[0]
     assert doc.page_content == RESUME_TYP_CONTENT
     assert doc.metadata["source"] == str(resume_typ)
-    assert doc.metadata["filetype"] == "Typst"
+    assert doc.metadata["filetype"] == "typst"
 
 
 def test_text_loader_strips_bom(tmp_path):
@@ -40,7 +40,7 @@ def test_load_resume_typ(sample_files):
 
     assert len(docs) == 1
     assert docs[0].page_content == RESUME_TYP_CONTENT
-    assert docs[0].metadata["filetype"] == "Typst"
+    assert docs[0].metadata["filetype"] == "typst"
 
 
 def test_load_resume_pdf_yields_one_document_per_page(resume_pdf):
@@ -49,7 +49,7 @@ def test_load_resume_pdf_yields_one_document_per_page(resume_pdf):
     assert len(docs) == 2
     assert [d.metadata["page"] for d in docs] == [0, 1]
     assert docs[0].page_content.strip() == PDF_PAGE_TEXTS[0].strip()
-    assert all(d.metadata["filetype"] == "PDF" for d in docs)
+    assert all(d.metadata["filetype"] == "pdf" for d in docs)
     assert all(d.metadata["source"] == str(resume_pdf) for d in docs)
 
 
@@ -60,7 +60,7 @@ def test_load_jd_markdown(sample_files):
 
     assert len(docs) == 1
     assert docs[0].page_content == JD_MD_CONTENT
-    assert docs[0].metadata["filetype"] == "Markdown"
+    assert docs[0].metadata["filetype"] == "markdown"
 
 
 def test_load_jd_txt(sample_files):
@@ -70,14 +70,14 @@ def test_load_jd_txt(sample_files):
 
     assert len(docs) == 1
     assert docs[0].page_content == JD_TXT_CONTENT
-    assert docs[0].metadata["filetype"] == "Text file"
+    assert docs[0].metadata["filetype"] == "text"
 
 
 def test_load_jd_pdf(resume_pdf):
     docs = load_jd(resume_pdf)
 
     assert len(docs) == 2
-    assert all(d.metadata["filetype"] == "PDF" for d in docs)
+    assert all(d.metadata["filetype"] == "pdf" for d in docs)
 
 
 @pytest.mark.parametrize("loader", [load_resume, load_jd])

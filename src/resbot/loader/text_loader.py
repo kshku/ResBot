@@ -10,9 +10,9 @@ class TextFileLoader(BaseLoader):
     """Reads a text file as a single document."""
 
     filetype_map: ClassVar[dict[str, str]] = {
-        ".typ": "Typst",
-        ".md": "Markdown",
-        ".txt": "Text file",
+        ".typ": "typst",
+        ".md": "markdown",
+        ".txt": "text",
     }
 
     def __init__(self, path: Path, encoding="utf-8-sig"):

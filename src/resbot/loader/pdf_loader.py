@@ -15,6 +15,6 @@ class PDFLoader(PyMuPDF4LLMLoader):
 def load_pdf(path: Path):
     docs = PDFLoader(path).load()
     for doc in docs:
-        doc.metadata["filetype"] = "PDF"
+        doc.metadata["filetype"] = "pdf"
     return docs
 
