@@ -1,3 +1,7 @@
 .env
 
 __pycache__/
+
+# test things
+test_resume.pdf
+test_jd.txt

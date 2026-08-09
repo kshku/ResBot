@@ -2,8 +2,26 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from pathlib import Path
+
+from resbot.config import get_chat_model, load_config
+from resbot.graph.workflow import build_agent_graph
+from resbot.report import format_analysis
+
+
 def analyze(args):
-    print("analyzing...")
+
+    graph = build_agent_graph(get_chat_model(load_config()))
+    result = graph.invoke({
+        "resume_path": Path(args.resume),
+        "jd_path": Path(args.jd)
+    })
+
+    analysis = result["analysis"]
+    if args.json:
+        print(analysis.model_dump_json(indent=2))
+    else:
+        print(format_analysis(analysis))
 
 def generate(args):
     print("generating...")
@@ -27,6 +45,7 @@ def main():
     analyze_parser.set_defaults(handler=analyze)
     analyze_parser.add_argument("resume", help="The resume")
     analyze_parser.add_argument("jd", help="The Job Description")
+    analyze_parser.add_argument("--json", action="store_true", help="dump json result")
 
     generate_parser = subparsers.add_parser("generate", help="Generate a resume for given JD")
     generate_parser.set_defaults(handler=generate)
