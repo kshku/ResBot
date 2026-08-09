@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-from langchain_core.chat_models import BaseChatModel
+from langchain_core.language_models.chat_models import BaseChatModel
 
 
 @dataclass(frozen=True)
